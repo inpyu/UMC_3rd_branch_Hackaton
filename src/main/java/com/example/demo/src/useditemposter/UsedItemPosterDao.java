@@ -109,4 +109,9 @@ public class UsedItemPosterDao {
     }
 
 
+    public int deleteUsedItemPoster(int postId) {
+        String deleteUsedItemPostQuery = "UPDATE UsedItemPoster SET status='D' WHERE id = ?";
+        int deleteUsedItemPostParam = postId;
+        return this.jdbcTemplate.update(deleteUsedItemPostQuery,deleteUsedItemPostParam);
+    }
 }

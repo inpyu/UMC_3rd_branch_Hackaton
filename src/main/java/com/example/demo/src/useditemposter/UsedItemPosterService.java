@@ -8,6 +8,8 @@ import com.example.demo.src.useditemposter.model.PostUsedItemPosterRes;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import static com.example.demo.config.BaseResponseStatus.*;
+
 @Service
 @RequiredArgsConstructor
 public class UsedItemPosterService {
@@ -21,7 +23,7 @@ public class UsedItemPosterService {
             int postId = usedItemPosterDao.createUsedItemPoster(postUsedItemPosterReq);
             return new PostUsedItemPosterRes(postId);
         } catch (Exception e) {
-            throw new BaseException(BaseResponseStatus.DATABASE_ERROR);
+            throw new BaseException(DATABASE_ERROR);
         }
 
     }
@@ -30,8 +32,13 @@ public class UsedItemPosterService {
 
         int result = usedItemPosterDao.modifyUsedItemPoster(postId, patchUsedItemPosterReq);
         if(result == 0) {
-                throw new BaseException(BaseResponseStatus.MODIFYING_ERROR);
+                throw new BaseException(MODIFYING_ERROR);
         }
     }
 
+    public void deleteUsedItemPoster(int postId) throws BaseException {
+        int result = usedItemPosterDao.deleteUsedItemPoster(postId);
+        if(result == 0)
+                throw new BaseException(DELETE_FAIL_USEDITEM);
+    }
 }

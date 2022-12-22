@@ -86,6 +86,17 @@ public class UsedItemPosterController {
         }
     }
 
+    @DeleteMapping("/{postId}")
+    public BaseResponse<String> deleteUsedItemPoster(@PathVariable int postId) {
+        try {
+            usedItemPosterService.deleteUsedItemPoster(postId);
+            return new BaseResponse<>("정상적으로 삭제되었습니다.");
+        } catch (BaseException e) {
+            return new BaseResponse<>(e.getStatus());
+        }
+
+    }
+
     @PostMapping
     public BaseResponse<PostUsedItemPosterRes> createUsedItemPoster(@RequestBody PostUsedItemPosterReq request) {
 
