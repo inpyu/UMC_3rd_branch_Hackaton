@@ -1,7 +1,9 @@
 package com.example.demo.src.town;
 
+import com.example.demo.src.town.model.DeleteTownReq;
 import com.example.demo.src.town.model.GetTownReq;
 import com.example.demo.src.town.model.GetTownRes;
+import com.example.demo.src.town.model.PatchTownReq;
 import com.example.demo.src.user.model.GetUserRes;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
@@ -75,4 +77,26 @@ public class TownDao {
                 getTownImgParams);
     }
 
+    public int updateTown(PatchTownReq patchTownReq) {
+
+        String updateTownQuery = "update TownPoster set " +
+                "content = ?," +
+                "modifiedAt = ? " +
+                "where id = ?"; // 해당 idx를 만족하는 Card를 해당 내용으로 변경한다.
+        Object[] updateTownParams = new Object[]{
+                patchTownReq.getContent(),
+                patchTownReq.getModifiedAt(),
+                patchTownReq.getId()}; // 주입될 값들(nickname, userIdx) 순
+        return this.jdbcTemplate.update(updateTownQuery, updateTownParams); // 대응시켜 매핑시켜 쿼리 요청(생성했으면 1, 실패했으면 0)
+    }
+
+    /**
+     * 동네 생활 포스팅 삭제
+     * */
+    public int deleteTown(DeleteTownReq deleteTownReq) {
+        String deletePostQuery = "delete from TownPoster where id = ?";
+        Object[] deletePostParams = new Object[]{ deleteTownReq.getId()};
+
+        return this.jdbcTemplate.update(deletePostQuery, deletePostParams);
+    }
 }
