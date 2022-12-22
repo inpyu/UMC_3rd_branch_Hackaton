@@ -17,7 +17,7 @@ public class TownService {
     private final TownDao townDao;
 
     /**
-     * 마을 포스트 생성
+     * 동네 생활 포스트 생성
      * */
     public PostTownRes createTownPost(GetTownReq getTownReq) throws BaseException {
         try {

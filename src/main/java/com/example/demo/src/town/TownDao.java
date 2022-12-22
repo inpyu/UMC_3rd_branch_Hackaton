@@ -20,7 +20,7 @@ public class TownDao {
 
 
     /**
-     * 명함 생성 코드(Create)
+     * 동네 생활 포스트 생성 코드(Create)
      * */
     public int createTownPost(GetTownReq getTownReq) {
         String createTownPostQuery = "insert into TownPoster" +
@@ -43,7 +43,7 @@ public class TownDao {
 
 
     /**
-     * 마을 포스팅 단일 정보(1개) 불러오기(Read)
+     * 동네 생활 포스팅 단일 정보(1개) 불러오기(Read)
      * */
     public GetTownRes getTown(int townPosterId){
         String getTownImgQuery = "select * from TownPoster where id = ?";
