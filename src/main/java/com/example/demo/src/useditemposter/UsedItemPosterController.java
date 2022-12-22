@@ -76,6 +76,12 @@ public class UsedItemPosterController {
         return new BaseResponse<>(res);
     }
 
+    /**
+     * 중고거래 글을 수정한다.
+     * @param postId
+     * @param patchUsedItemPosterReq
+     * @return
+     */
     @PatchMapping("/{postId}")
     public BaseResponse<String> modifyUsedItemPoster(@PathVariable int postId, @RequestBody PatchUsedItemPosterReq patchUsedItemPosterReq) {
         try {
@@ -86,6 +92,11 @@ public class UsedItemPosterController {
         }
     }
 
+    /**
+     * 중고거래 글을 삭제한다.
+     * @param postId
+     * @return
+     */
     @DeleteMapping("/{postId}")
     public BaseResponse<String> deleteUsedItemPoster(@PathVariable int postId) {
         try {
@@ -97,6 +108,25 @@ public class UsedItemPosterController {
 
     }
 
+
+    @PatchMapping("/{postId}/heart-clicked")
+    public BaseResponse<String> heartClicked(@PathVariable int postId) {
+        try {
+            usedItemPosterService.raisePosterHeart(postId);
+            return new BaseResponse<>("정상적으로 증가되었습니다.");
+        } catch (BaseException e) {
+            return new BaseResponse<>(e.getStatus());
+        }
+    }
+
+
+    /**
+     *
+     * @param request
+     * @return
+     *
+     * 중고거래 글을 생성한다.
+     */
     @PostMapping
     public BaseResponse<PostUsedItemPosterRes> createUsedItemPoster(@RequestBody PostUsedItemPosterReq request) {
 
