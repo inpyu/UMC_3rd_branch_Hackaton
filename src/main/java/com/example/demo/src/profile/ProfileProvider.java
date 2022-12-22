@@ -6,6 +6,7 @@ import com.example.demo.src.profile.model.GetProfileRes;
 import com.example.demo.src.user.UserDao;
 import com.example.demo.src.user.model.GetUserRes;
 import com.example.demo.utils.JwtService;
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -14,14 +15,11 @@ import java.util.List;
 import static com.example.demo.config.BaseResponseStatus.DATABASE_ERROR;
 
 @Service
+@RequiredArgsConstructor
 public class ProfileProvider {
 
     private final ProfileDao profileDao;
 
-    @Autowired
-    public ProfileProvider(ProfileDao profileDao) {
-        this.profileDao = profileDao;
-    }
 
 
     /**
@@ -33,6 +31,7 @@ public class ProfileProvider {
             return getProfileRes;
         }
         catch (Exception exception) {
+            exception.printStackTrace();
             throw new BaseException(DATABASE_ERROR);
         }
     }

@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.*;
 
 
 @RestController
-@RequestMapping("/user")
+@RequestMapping("/users")
 public class ProfileController {
 
     @Autowired
@@ -21,13 +21,13 @@ public class ProfileController {
 
     /**
      * 유저페이지 조회 API
-     * [GET] /users/:userIdx
+     * [GET] /users/:userid
      * @return BaseResponse<GetProfileRes>
      */
     // Path-variable
     @ResponseBody
-    @GetMapping("/{userIdx}")
-    public BaseResponse<GetProfileRes> getProfileUser(@PathVariable("id") int id) {
+    @GetMapping("/{userId}")
+    public BaseResponse<GetProfileRes> getProfileUser(@PathVariable("userId") int id) {
         // Get ProfileUsers
         try{
             GetProfileRes getProfileRes = profileProvider.getProfileUser(id);
