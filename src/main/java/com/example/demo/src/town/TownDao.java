@@ -2,11 +2,13 @@ package com.example.demo.src.town;
 
 import com.example.demo.src.town.model.GetTownReq;
 import com.example.demo.src.town.model.GetTownRes;
+import com.example.demo.src.user.model.GetUserRes;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
 
 import javax.sql.DataSource;
+import java.util.List;
 
 @Repository
 public class TownDao {
@@ -41,6 +43,21 @@ public class TownDao {
         return this.jdbcTemplate.queryForObject(lastInsertIdQuery, int.class); // 해당 쿼리문의 결과 마지막으로 삽인된 유저의 postId 번호를 반환한다.
     }
 
+
+    /**
+     * 동네 생활 모든 포스팅 불러오기(Read)
+     * */
+    public List<GetTownRes> getTowns(){
+        String getTownQuery = "select * from TownPoster";
+        return this.jdbcTemplate.query(getTownQuery,
+                (rs,rowNum) -> new GetTownRes(
+                        rs.getInt("id"),
+                        rs.getInt("userId"),
+                        rs.getString("content"),
+                        rs.getTimestamp("createdAt"),
+                        rs.getTimestamp("modifiedAt"))
+        );
+    }
 
     /**
      * 동네 생활 포스팅 단일 정보(1개) 불러오기(Read)

@@ -50,8 +50,8 @@ com/example/demo/utils/JwtService.java
  com.example.demo.utils.JwtService
 com/example/demo/src/profile/ProfileController.java
  com.example.demo.src.profile.ProfileController
-com/example/demo/src/townImg/model/GetTownImgRes.java
- com.example.demo.src.townImg.model.GetTownImgRes
+com/example/demo/src/town/model/GetTownRes.java
+ com.example.demo.src.town.model.GetTownRes
 com/example/demo/src/useditemposter/UsedItemPosterDao.java
  com.example.demo.src.useditemposter.UsedItemPosterDao
 com/example/demo/src/town/model/PostTownRes.java
@@ -60,18 +60,20 @@ com/example/demo/src/useditemposter/model/PostUsedItemPosterReq.java
  com.example.demo.src.useditemposter.model.PostUsedItemPosterReq
 com/example/demo/src/useditemposter/model/GetUsedItemPosterRes.java
  com.example.demo.src.useditemposter.model.GetUsedItemPosterRes
-com/example/demo/src/town/TownProvider.java
- com.example.demo.src.town.TownProvider
-com/example/demo/src/town/TownService.java
- com.example.demo.src.town.TownService
-com/example/demo/src/townImg/TownImgDao.java
- com.example.demo.src.townImg.TownImgDao
-com/example/demo/src/town/model/GetTownRes.java
- com.example.demo.src.town.model.GetTownRes
 com/example/demo/utils/entity/BaseTimeEntity.java
  com.example.demo.utils.entity.BaseTimeEntity
+com/example/demo/src/town/model/GetTownImgRes.java
+ com.example.demo.src.town.model.GetTownImgRes
+com/example/demo/src/town/TownService.java
+ com.example.demo.src.town.TownService
+com/example/demo/src/town/TownImgDao.java
+ com.example.demo.src.town.TownImgDao
 com/example/demo/src/town/model/GetTownReq.java
  com.example.demo.src.town.model.GetTownReq
+com/example/demo/src/town/model/GetTownImgReq.java
+ com.example.demo.src.town.model.GetTownImgReq
+com/example/demo/src/town/TownProvider.java
+ com.example.demo.src.town.TownProvider
 com/example/demo/src/town/TownDao.java
  com.example.demo.src.town.TownDao
 com/example/demo/src/town/TownController.java
