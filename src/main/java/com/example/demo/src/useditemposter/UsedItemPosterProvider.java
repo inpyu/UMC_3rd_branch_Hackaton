@@ -59,4 +59,14 @@ public class UsedItemPosterProvider {
             throw new BaseException(DATABASE_ERROR);
         }
     }
+
+    public List<GetUsedItemPosterRes> getUsedItemPostersByWord(String searchWord) throws BaseException {
+        try {
+            return usedItemPosterDao.findByWord(searchWord);
+        } catch (Exception e) {
+            e.printStackTrace();
+            throw new BaseException(DATABASE_ERROR);
+        }
+
+    }
 }

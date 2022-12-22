@@ -47,4 +47,14 @@ public class UsedItemPosterService {
         if(result == 0)
             throw new BaseException(DATABASE_ERROR);
     }
+
+    public void setPosterStatusPurchased(int postId) throws BaseException {
+        try{
+            usedItemPosterDao.modifyPosterStatusPurchased(postId);
+        } catch (Exception e) {
+            e.printStackTrace();
+            throw new BaseException(DATABASE_ERROR);
+        }
+
+    }
 }

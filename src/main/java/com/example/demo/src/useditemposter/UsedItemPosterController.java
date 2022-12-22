@@ -50,13 +50,15 @@ public class UsedItemPosterController {
     @GetMapping
     public BaseResponse<List<GetUsedItemPosterRes>> getUsedItemPosters(@RequestParam(required = false) Integer categoryId,
                                                                        @RequestParam(required = false) Integer userId,
+                                                                       @RequestParam(required = false) String searchWord,
                                                                        @RequestParam int page) {
         //validation
 
         List<GetUsedItemPosterRes> res;
         try {
-
-            if (categoryId != null && userId != null) {
+            if(searchWord != null) {
+                res = usedItemPosterProvider.getUsedItemPostersByWord(searchWord);
+            } else if (categoryId != null && userId != null) {
                 return new BaseResponse<>(REQUEST_ERROR);
             } else if(categoryId == null && userId == null) {
                 res = usedItemPosterProvider.getUsedItemPosters(page);
@@ -166,5 +168,6 @@ public class UsedItemPosterController {
             throw new BaseException(REQUEST_ERROR);
         }
     }
+
 
 }

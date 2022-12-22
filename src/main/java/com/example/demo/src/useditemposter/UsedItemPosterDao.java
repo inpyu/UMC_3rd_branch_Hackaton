@@ -120,4 +120,29 @@ public class UsedItemPosterDao {
         int raisePosterHeartParam = postId;
         return this.jdbcTemplate.update(raisePosterHeartQuery,raisePosterHeartParam);
     }
+
+    public int modifyPosterStatusPurchased(int postId) {
+        String modifyPosterStatusPurchasedQuery = "UPDATE UsedItemPoster SET status = 'P' WHERE id = ?";
+        int param = postId;
+
+        return this.jdbcTemplate.update(modifyPosterStatusPurchasedQuery,param);
+    }
+
+    public List<GetUsedItemPosterRes> findByWord(String searchWord) {
+        String findByWordQuery = "SELECT * FROM UsedItemPoster p JOIN Category c on c.id = p.categoryId WHERE title LIKE  ? ";
+        String param = "%" + searchWord +"%";
+
+        return this.jdbcTemplate.query(findByWordQuery,
+                (rs, rowNum) -> new GetUsedItemPosterRes(
+                        rs.getInt("id"),
+                        rs.getString("c.name"),
+                        rs.getString("title"),
+                        rs.getInt("price"),
+                        rs.getString("status"),
+                        rs.getString("content"),
+                        rs.getInt("hearts"),
+                        rs.getTimestamp("createdAt"),
+                        rs.getTimestamp("modifiedAt")
+                ), param);
+    }
 }
