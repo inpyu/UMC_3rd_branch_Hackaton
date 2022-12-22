@@ -114,4 +114,10 @@ public class UsedItemPosterDao {
         int deleteUsedItemPostParam = postId;
         return this.jdbcTemplate.update(deleteUsedItemPostQuery,deleteUsedItemPostParam);
     }
+
+    public int raisePosterHeart(int postId) {
+        String raisePosterHeartQuery = "UPDATE UsedItemPoster SET hearts = hearts + 1 WHERE id = ?";
+        int raisePosterHeartParam = postId;
+        return this.jdbcTemplate.update(raisePosterHeartQuery,raisePosterHeartParam);
+    }
 }

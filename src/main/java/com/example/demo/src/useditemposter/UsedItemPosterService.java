@@ -41,4 +41,10 @@ public class UsedItemPosterService {
         if(result == 0)
                 throw new BaseException(DELETE_FAIL_USEDITEM);
     }
+
+    public void raisePosterHeart(int postId) throws BaseException {
+        int result = usedItemPosterDao.raisePosterHeart(postId);
+        if(result == 0)
+            throw new BaseException(DATABASE_ERROR);
+    }
 }
