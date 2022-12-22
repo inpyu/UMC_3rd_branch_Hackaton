@@ -6,3 +6,5 @@
 /src/main/resources/application.yml
 /.idea/**
 .idea/**
+logs/**
+build/**
