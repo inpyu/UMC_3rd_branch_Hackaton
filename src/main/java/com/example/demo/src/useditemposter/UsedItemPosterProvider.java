@@ -5,6 +5,7 @@ import com.example.demo.config.BaseResponseStatus;
 import com.example.demo.src.useditemposter.model.GetUsedItemPosterRes;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -22,6 +23,8 @@ public class UsedItemPosterProvider {
     public GetUsedItemPosterRes getUsedItemPosterById(int id) throws BaseException {
         try {
             return usedItemPosterDao.getUsedItemPoster(id);
+        } catch (EmptyResultDataAccessException e) {
+            throw new BaseException(REQUEST_ERROR);
         } catch (Exception e) {
             e.printStackTrace();
             throw new BaseException(DATABASE_ERROR);
@@ -47,8 +50,6 @@ public class UsedItemPosterProvider {
     }
 
     public List<GetUsedItemPosterRes> getUsedItemPosters(int page) throws BaseException {
-
-
         int offset = page * SIZE;
         try{
             return usedItemPosterDao.findAll(SIZE,offset);
