@@ -1,4 +1,4 @@
-package com.example.demo.src.townImg.model;
+package com.example.demo.src.town.model;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -13,5 +13,4 @@ public class GetTownImgRes {
     private String storedUrl;
     private int townPosterId;
     private String originalFileName;
-
 }
