@@ -1,6 +1,7 @@
 package com.example.demo.src.useditemposter;
 
 import com.example.demo.src.useditemposter.model.GetUsedItemPosterRes;
+import com.example.demo.src.useditemposter.model.PatchUsedItemPosterReq;
 import com.example.demo.src.useditemposter.model.PostUsedItemPosterReq;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
@@ -21,7 +22,7 @@ public class UsedItemPosterDao {
 
     public GetUsedItemPosterRes getUsedItemPoster(int usedItemPosterId) {
         String getUsedItemPosterQuery = "SELECT * FROM UsedItemPoster p" +
-                " JOIN Category c on c.id =  p.categoryId  where p.id = ?";
+                " JOIN Category c on c.id =  p.categoryId  where p.id = ? and p.status != 'D' ";
         int getUsedItemPosterParam = usedItemPosterId;
 
         return this.jdbcTemplate.queryForObject(getUsedItemPosterQuery,
@@ -58,7 +59,7 @@ public class UsedItemPosterDao {
     }
 
     public List<GetUsedItemPosterRes> findByCategoryId(int categoryId ,int size ,int offset) {
-        String getPostersByCategoryQuery = "SELECT * FROM UsedItemPoster p JOIN Category c ON c.id = p.categoryId where p.categoryId = ? " +
+        String getPostersByCategoryQuery = "SELECT * FROM UsedItemPoster p JOIN Category c ON c.id = p.categoryId where p.categoryId = ? and p.status != 'D' " +
                 "ORDER BY p.id DESC LIMIT ? OFFSET ?";
 
         Object[] getByCategoryParams = new Object[]{categoryId, size, offset};
@@ -78,7 +79,7 @@ public class UsedItemPosterDao {
     }
 
     public List<GetUsedItemPosterRes> findAll(int size ,int offset) {
-        String getPostersByCategoryQuery = "SELECT * FROM UsedItemPoster p JOIN Category c ON c.id = p.categoryId " +
+        String getPostersByCategoryQuery = "SELECT * FROM UsedItemPoster p JOIN Category c ON c.id = p.categoryId and p.status != 'D' " +
                 "ORDER BY p.id DESC LIMIT ? OFFSET ?";
 
         Object[] getByCategoryParams = new Object[]{size, offset};
@@ -96,5 +97,16 @@ public class UsedItemPosterDao {
                         rs.getTimestamp("modifiedAt")
                 ), getByCategoryParams);
     }
+
+    public int modifyUsedItemPoster(int postId , PatchUsedItemPosterReq patchUsedItemPosterReq) {
+        String modifyUsedItemPosterQuery = "UPDATE UsedItemPoster SET title = ? , content = ? , price = ? " +
+                "where id = ?";
+
+        Object[] modifyUsedItemPosterParams = new Object[] { patchUsedItemPosterReq.getTitle(),
+        patchUsedItemPosterReq.getContent(), patchUsedItemPosterReq.getPrice(),postId};
+
+        return this.jdbcTemplate.update(modifyUsedItemPosterQuery,modifyUsedItemPosterParams);
+    }
+
 
 }

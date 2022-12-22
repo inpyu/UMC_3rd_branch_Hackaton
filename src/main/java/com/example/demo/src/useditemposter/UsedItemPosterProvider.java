@@ -41,7 +41,7 @@ public class UsedItemPosterProvider {
 
         int offset = page * SIZE;
         try {
-            return usedItemPosterDao.findByCategoryId(categoryId,SIZE,offset);
+            return usedItemPosterDao.findByCategoryId(categoryId, SIZE, offset);
         } catch (Exception e) {
             e.printStackTrace();
             throw new BaseException(DATABASE_ERROR);
@@ -52,7 +52,8 @@ public class UsedItemPosterProvider {
     public List<GetUsedItemPosterRes> getUsedItemPosters(int page) throws BaseException {
         int offset = page * SIZE;
         try{
-            return usedItemPosterDao.findAll(SIZE,offset);
+            return usedItemPosterDao.findAll(SIZE, offset);
+
         } catch (Exception e) {
             e.printStackTrace();
             throw new BaseException(DATABASE_ERROR);

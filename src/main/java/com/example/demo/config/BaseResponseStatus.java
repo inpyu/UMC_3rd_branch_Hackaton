@@ -12,7 +12,7 @@ public enum BaseResponseStatus {
     /**
      * 200: UsedItemPoster 관련 코드
      */
-    
+
 
 
     /**
@@ -56,7 +56,9 @@ public enum BaseResponseStatus {
      * 4000 : Database, Server 오류
      */
     DATABASE_ERROR(false, 4000, "데이터베이스 연결에 실패하였습니다."),
+
     SERVER_ERROR(false, 4001, "서버와의 연결에 실패하였습니다."),
+    MODIFYING_ERROR(false, 4002, "데이터 변경에 실패하였습니다."),
 
     //[PATCH] /users/{userIdx}
     MODIFY_FAIL_USERNAME(false,4014,"유저네임 수정 실패"),

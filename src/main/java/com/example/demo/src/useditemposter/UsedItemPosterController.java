@@ -4,6 +4,7 @@ import com.example.demo.config.BaseException;
 import com.example.demo.config.BaseResponse;
 import com.example.demo.config.BaseResponseStatus;
 import com.example.demo.src.useditemposter.model.GetUsedItemPosterRes;
+import com.example.demo.src.useditemposter.model.PatchUsedItemPosterReq;
 import com.example.demo.src.useditemposter.model.PostUsedItemPosterReq;
 import com.example.demo.src.useditemposter.model.PostUsedItemPosterRes;
 import lombok.RequiredArgsConstructor;
@@ -73,6 +74,16 @@ public class UsedItemPosterController {
             return new BaseResponse<>(NO_CORRESPONDING_DATA);
         }
         return new BaseResponse<>(res);
+    }
+
+    @PatchMapping("/{postId}")
+    public BaseResponse<String> modifyUsedItemPoster(@PathVariable int postId, @RequestBody PatchUsedItemPosterReq patchUsedItemPosterReq) {
+        try {
+            usedItemPosterService.modifyUsedItemPoster(postId,patchUsedItemPosterReq);
+            return new BaseResponse<>("정상적으로 변경되었습니다.");
+        } catch (BaseException e) {
+            return new BaseResponse<>(e.getStatus());
+        }
     }
 
     @PostMapping
