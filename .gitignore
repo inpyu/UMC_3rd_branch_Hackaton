@@ -4,3 +4,5 @@
 # Project exclude paths
 /.gradle/
 /src/main/resources/application.yml
+/.idea/**
+.idea/**
