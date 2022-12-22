@@ -4,6 +4,8 @@ import com.example.demo.config.BaseException;
 import com.example.demo.config.BaseResponse;
 import com.example.demo.config.BaseResponseStatus;
 import com.example.demo.src.useditemposter.model.GetUsedItemPosterRes;
+import com.example.demo.src.useditemposter.model.PostUsedItemPosterReq;
+import com.example.demo.src.useditemposter.model.PostUsedItemPosterRes;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
@@ -49,25 +51,67 @@ public class UsedItemPosterController {
                                                                        @RequestParam(required = false) Integer userId,
                                                                        @RequestParam int page) {
         //validation
+
+        List<GetUsedItemPosterRes> res;
         try {
 
-            if ((categoryId == null && userId == null) || (categoryId != null && userId != null)) {
+            if (categoryId != null && userId != null) {
                 return new BaseResponse<>(REQUEST_ERROR);
+            } else if(categoryId == null && userId == null) {
+                res = usedItemPosterProvider.getUsedItemPosters(page);
+            } else if (categoryId != null) {
+                res = usedItemPosterProvider.getUsedItemPostersByCategoryId(categoryId.intValue(), page);
             } else {
-                if (categoryId != null) {
-                    List<GetUsedItemPosterRes> res = usedItemPosterProvider.getUsedItemPostersByCategoryId(categoryId.intValue(), page);
-
-                    if(res.size() == 0) {
-                        return new BaseResponse<>(NO_CORRESPONDING_DATA);
-                    }
-                    return new BaseResponse<>(res);
-
-                } else {
-                    return new BaseResponse<>(NOT_IMPLEMENT);
-                }
+                return new BaseResponse<>(NOT_IMPLEMENT);
             }
+
         }catch (BaseException e) {
             return new BaseResponse<>(e.getStatus());
+        }
+
+        if(res.size() == 0) {
+            return new BaseResponse<>(NO_CORRESPONDING_DATA);
+        }
+        return new BaseResponse<>(res);
+    }
+
+    @PostMapping
+    public BaseResponse<PostUsedItemPosterRes> createUsedItemPoster(@RequestBody PostUsedItemPosterReq request) {
+
+        try {
+            validatePostUsedItemPosterReq(request);
+            PostUsedItemPosterRes res = usedItemPosterService.createUsedItemPoster(request);
+            return new BaseResponse<>(res);
+        } catch (BaseException e) {
+            return new BaseResponse<>(e.getStatus());
+        }
+    }
+
+    private void validatePostUsedItemPosterReq(PostUsedItemPosterReq request) throws BaseException {
+        int sellerId = request.getSellerId();
+        String content = request.getContent();
+        int categoryId = request.getCategoryId();
+        String title = request.getTitle();
+        int price = request.getPrice();
+
+        if(sellerId < 1) {
+            throw new BaseException(REQUEST_ERROR);
+        }
+
+        if( content.length() == 0 || content.length() > 1000) {
+            throw new BaseException(REQUEST_ERROR);
+        }
+
+        if(price < 0) {
+            throw new BaseException(REQUEST_ERROR);
+        }
+
+        if(categoryId < 1) {
+            throw new BaseException(REQUEST_ERROR);
+        }
+
+        if(title.isEmpty() || title.length() > 100) {
+            throw new BaseException(REQUEST_ERROR);
         }
     }
 
