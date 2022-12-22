@@ -69,6 +69,7 @@ public enum BaseResponseStatus {
 
     // 5000 : 필요시 만들어서 쓰세요
     DELETE_FAIL_TOWN(false,4015,"포스트 삭제 실패하였습니다"),
+    DELETE_FAIL_USEDITEM(false,4016,"포스트 삭제 실패하였습니다."),
 
     NOT_IMPLEMENT(false, 5000, "아직 미구현되었으니 기다리십쇼");
     // 6000 : 필요시 만들어서 쓰세요
